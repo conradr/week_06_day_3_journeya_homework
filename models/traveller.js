@@ -1,7 +1,7 @@
 const Traveller = function (journeys) {
   this.journeys = journeys
 }
-
+//rewrite this with a map
 Traveller.prototype.getJourneyStartLocations = function () {
   let startLocations = []
   const result = this.journeys.forEach((journey) => {
@@ -18,13 +18,14 @@ Traveller.prototype.getJourneyEndLocations = function () {
   return endLocations
 }
 
+// returns in a beeter place than the next function
 Traveller.prototype.getJourneysByTransport = function (transport) {
-  const result = this.journeys.filter((journey) => {
-    return journey.transport == transport
+  return this.journeys.filter((journey) => {
+    return journey.transport === transport
   })
-  return result
 }
 
+//don't need to add the function to a result var
 Traveller.prototype.getJourneysByMinDistance = function (minDistance) {
   const result = this.journeys.filter((journey) => {
     return journey.distance > minDistance
@@ -40,12 +41,15 @@ Traveller.prototype.calculateTotalDistanceTravelled = function () {
   return total
 }
 
-//not working
+//working now
 Traveller.prototype.getUniqueModesOfTransport = function () {
-  const result = this.journeys.filter((journey, index) => {
-    return this.journeys.indexOf(journey) == index
+  const transportModes = this.journeys.map((journey) => {
+    return journey.transport
   })
-  return result
+
+  return transportModes.filter((transport, index) => {
+    return transportModes.indexOf(transport) === index
+  })
 }
 
 module.exports = Traveller
